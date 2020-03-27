@@ -1,9 +1,9 @@
 /* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
 
-{
+{ // dzieki temu, zmienne i stałe z naszego skryptu nie będą dostępne w innych plikach
   'use strict';
 
-  const select = { //obiekt
+  const select = { // obiekt zawierający selektory, które będą nam potrzebne
     templateOf: { //obiekt 
       menuProduct: '#template-menu-product', // jego właściwość, która zawiera selektor do naszego szablonu produktu.
     },
@@ -33,14 +33,14 @@
     },
   };
 
-  const classNames = {
+  const classNames = { //nazwy klas, którymi nasz skrypt będzie manipulował (nadawał i usuwał),
     menuProduct: {
       wrapperActive: 'active',
       imageVisible: 'active',
     },
   };
 
-  const settings = {
+  const settings = { //  ustawienia naszego skryptu, wszystkie wartości, które wygodniej będzie zmieniać w jednym miejscu
     amountWidget: {
       defaultValue: 1,
       defaultMin: 1,
@@ -48,20 +48,23 @@
     }
   };
 
-  const templates = { //obiekt
+  const templates = { //szablony Handlebars, do których wykorzystujemy selektory z obiektu select
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML), //metoda, stworzona za pomocą handlebars
-  };
+  };   //NIE JASNE 
 
-  class Product { // product to obiekt 
+  class Product { // product to klasa
     constructor(id, data) { /* to specjalna metoda, która uruchomi się przy tworzeniu 
       każdej instancji. Id i data to argumenty ktore otrzymuje konstruktor */
 
       const thisProduct = this; //reprezentuje obiekt stworzony na podstawie klasy.
+
       thisProduct.id = id;
       thisProduct.data = data;
+
       thisProduct.renderInMenu();
-      console.log('new Product;', thisProduct);
       thisProduct.initAccordion();
+      console.log('new Product;', thisProduct);
+
     }
     renderInMenu() { //renderuje czyli tworzy produkty na stronie
       const thisProduct = this;
@@ -71,6 +74,7 @@
 
       /* create element using utils.createElementFromHTML - tworzenie elementu DOM */
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
+      //PO CO DOM? potrzebujemy też zapisać we właściwości instancji ten wygenerowany element?jak to 
 
       /* find menu container */ // znajdujemy kontener menu,którego selektor mamy zapisany w select.containerOf.menu.
       const menuContainer = document.querySelector(select.containerOf.menu);
@@ -78,6 +82,8 @@
       /* add element to menu  */ //dodajemy stworzony element do menu za pomocą metody appendChils
       menuContainer.appendChild(thisProduct.element);
     }
+
+
     initAccordion() { //metoda
       const thisProduct = this;
 
@@ -85,7 +91,7 @@
       const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
 
       /*   [DONE] START: click event listener to trigger */
-      clickableTrigger.addEventListener('click', function(event){
+      clickableTrigger.addEventListener('click', function (event) {
 
         /*  [DONE] prevent default action for event */
         event.preventDefault();
@@ -115,7 +121,7 @@
     }
   }
 
-  const app = {
+  const app = { //obiekt który pomoże nam w organizacji kodu naszej aplikacji,
 
     initMenu: function () { // metoda i jej deklaracja
       const thisApp = this;
@@ -126,7 +132,7 @@
 
     },
 
-    initData: function () { // metoda. w przyszłości pozwoli nam zmienić sposób pobierania danych.
+    initData: function () { // metoda. gdzie zapisalismy def.prod i chcemy z tego skorzystać
       const thisApp = this;
 
       thisApp.data = dataSource; // dataSource to obiekt,w którym zapisaliśmy definicje naszych produktów 
@@ -149,5 +155,5 @@
 
   };
 
-  app.init();
+  app.init(); // wywołanie metody, która będzie uruchamiać wszystkie pozostałe komponenty strony.
 }

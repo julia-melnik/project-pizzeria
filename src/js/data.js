@@ -1,6 +1,6 @@
 const dataSource = {}; // eslint-disable-line no-unused-vars
 
-dataSource.products = {
+dataSource.products = { //tutaj wszystkie produkty
   cake: {
     class: 'small',
     name: 'Zio Stefano\'s Doughnut',
