@@ -46,11 +46,11 @@ dataSource.products = {
       '<img class="active toppings-mushrooms" src="images/pizza/mushrooms.svg">',
       '<img class="active toppings-basil" src="images/pizza/basil.svg">',
     ],
-    params: {
-      sauce: {
-        label: 'Sauce',
-        type: 'radios',
-        options: {
+    params: { //opcje produktu - parametry
+      sauce: { //parametr dla pizzy to sos, rodzaj ciasta
+        label: 'Sauce', //nazwa wyswietlana na stronie
+        type: 'radios', //decyduje o wyswietleniu opcji zaznaczenia
+        options: { //zestaw możliwych opcji dla danego parametru.
           tomato: {label: 'Tomato', price: 0, default: true},
           cream: {label: 'Sour cream', price: 2},
         },
