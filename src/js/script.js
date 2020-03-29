@@ -51,7 +51,6 @@
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
-
   class Product {
     constructor(id, data) {
 
@@ -84,6 +83,8 @@
       /* add element to menu  */ //dodajemy stworzony element do menu za pomocą metody appendChils
       menuContainer.appendChild(thisProduct.element);
     }
+
+
     getElements() {
       const thisProduct = this;
 
@@ -92,7 +93,9 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
+
     initAccordion() {
 
       const thisProduct = this;
@@ -148,6 +151,8 @@
         thisProduct.processOrder();
       });
     }
+
+
     processOrder() {
       const thisProduct = this;
       console.log(thisProduct);
@@ -173,7 +178,6 @@
           const option = param.options[optionId];
           console.log(option);
 
-          /* START IF: if option is selected and option is not default */
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId);
           console.log(optionSelected);
 
@@ -187,20 +191,49 @@
           }
           /* START ELSE IF: if option is not selected and option is default */
           else if (!optionSelected && option.default) {
+
             /* deduct price of option from price */
             price = price - option.price;
 
             /* END ELSE IF: if option is not selected and option is default */
           }
+          /* find all active images */
+          const activeImages = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
+
+          /* START IF: if option is selected */
+          if (optionSelected) {
+
+            /* START LOOP: for each activeImage of  all active images */
+            for (let activeImage of activeImages) {
+
+              /* add class active for the active image */
+              activeImage.classList.add(classNames.menuProduct.imageVisible);
+            }
+          }
+
+          /* START ELSE : if option is not selected  */
+          else {
+            /* START LOOP: for each activeImage of  all active images */
+            for (let activeImage of activeImages) {
+
+              /* remove class active for the active product */
+              activeImage.classList.remove(classNames.menuProduct.imageVisible);
+            }
+          }
+
           /* END LOOP: for each optionId in param.options */
         }
         /* END LOOP: for each paramId in thisProduct.data.params */
       }
+
       /*  [DONE] set the contents of thisProduct.priceElem to be the value of variable price */
-      thisProduct.priceElem.innerHTML = thisProduct.price;
+      thisProduct.priceElem.innerHTML = price;
 
     }
   }
+
+
+
   const app = {
 
     initMenu: function () {
