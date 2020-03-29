@@ -1,6 +1,6 @@
 /* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
 
-{ // dzieki temu, zmienne i stałe z naszego skryptu nie będą dostępne w innych plikach
+{
   'use strict';
 
   const select = { // obiekt zawierający selektory, które będą nam potrzebne
@@ -33,14 +33,14 @@
     },
   };
 
-  const classNames = { //nazwy klas, którymi nasz skrypt będzie manipulował (nadawał i usuwał),
+  const classNames = {
     menuProduct: {
       wrapperActive: 'active',
       imageVisible: 'active',
     },
   };
 
-  const settings = { //  ustawienia naszego skryptu, wszystkie wartości, które wygodniej będzie zmieniać w jednym miejscu
+  const settings = {
     amountWidget: {
       defaultValue: 1,
       defaultMin: 1,
@@ -48,24 +48,24 @@
     }
   };
 
-  const templates = { //szablony Handlebars, do których wykorzystujemy selektory z obiektu select
-    menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML), //metoda, stworzona za pomocą handlebars
-  };   //NIE JASNE 
+  const templates = {
+    menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
+  };
 
-  class Product { // product to klasa
-    constructor(id, data) { /* to specjalna metoda, która uruchomi się przy tworzeniu 
-      każdej instancji. Id i data to argumenty ktore otrzymuje konstruktor */
+  class Product {
+    constructor(id, data) {
 
-      const thisProduct = this; //reprezentuje obiekt stworzony na podstawie klasy.
+      const thisProduct = this;
 
       thisProduct.id = id;
       thisProduct.data = data;
 
       thisProduct.renderInMenu();
       thisProduct.initAccordion();
-      console.log('new Product;', thisProduct);
 
+      console.log('new Product:', thisProduct);
     }
+
     renderInMenu() { //renderuje czyli tworzy produkty na stronie
       const thisProduct = this;
 
@@ -74,7 +74,6 @@
 
       /* create element using utils.createElementFromHTML - tworzenie elementu DOM */
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
-      //PO CO DOM? potrzebujemy też zapisać we właściwości instancji ten wygenerowany element?jak to 
 
       /* find menu container */ // znajdujemy kontener menu,którego selektor mamy zapisany w select.containerOf.menu.
       const menuContainer = document.querySelector(select.containerOf.menu);
@@ -83,34 +82,32 @@
       menuContainer.appendChild(thisProduct.element);
     }
 
+    initAccordion() {
 
-    initAccordion() { //metoda
       const thisProduct = this;
 
-      /* [DONE] find the clickable trigger (the element that should react to clicking) */
+      /* find the clickable trigger (the element that should react to clicking) */
       const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
 
-      /*   [DONE] START: click event listener to trigger */
+      /* START: click event listener to trigger */
       clickableTrigger.addEventListener('click', function (event) {
 
-        /*  [DONE] prevent default action for event */
+        /* prevent default action for event */
         event.preventDefault();
 
-        /*  [DONE] toggle active class on element of thisProduct */
+        /* toggle active class on element of thisProduct */
         thisProduct.element.classList.toggle('active');
 
-        /*  [DONE] find all active products */
-        const allActiveProducts = document.querySelectorAll('article.active');
+        /* find all active products */
+        const allActiveProducts = document.querySelectorAll('active');
 
-        /* [DONE] START LOOP: for each active product */
+        /* START LOOP: for each active product */
         for (let activeProduct of allActiveProducts) {
 
-          /* [DONE]  START: if the active product isn't the element of thisProduct */
-          if (activeProduct !== thisProduct.element) {
-
-            /*  [DONE] remove class active for the active product */
+          /* START: if the active product isn't the element of thisProduct */
+          if (activeProduct != thisProduct.element) {
+            /* remove class active for the active product */
             activeProduct.classList.remove('active');
-
             /* END: if the active product isn't the element of thisProduct */
           }
           /* END LOOP: for each active product */
@@ -120,16 +117,14 @@
 
     }
   }
+  const app = {
 
-  const app = { //obiekt który pomoże nam w organizacji kodu naszej aplikacji,
-
-    initMenu: function () { // metoda i jej deklaracja
+    initMenu: function () {
       const thisApp = this;
       console.log('thisApp.data:', thisApp.data);
       for (let productData in thisApp.data.products) { // tworzymy nową instancję dla każdego produktu. 
         new Product(productData, thisApp.data.products[productData]);
       }
-
     },
 
     initData: function () { // metoda. gdzie zapisalismy def.prod i chcemy z tego skorzystać
@@ -137,7 +132,6 @@
 
       thisApp.data = dataSource; // dataSource to obiekt,w którym zapisaliśmy definicje naszych produktów 
     },
-
 
 
     init: function () {
@@ -151,9 +145,7 @@
       thisApp.initData();
       thisApp.initMenu();
     },
-
-
   };
 
-  app.init(); // wywołanie metody, która będzie uruchamiać wszystkie pozostałe komponenty strony.
+  app.init();
 }

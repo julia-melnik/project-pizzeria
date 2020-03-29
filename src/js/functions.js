@@ -1,7 +1,7 @@
 
 /* global Handlebars */
 
-const utils = {}; // eslint-disable-line no-unused-vars
+const utils = {}; // eslint-disable-line no-unused-vars // utilities czyli narzędzia.
 
 utils.createDOMFromHTML = function(htmlString) {
   let div = document.createElement('div');
