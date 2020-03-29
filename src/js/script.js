@@ -197,27 +197,27 @@
 
             /* END ELSE IF: if option is not selected and option is default */
           }
-          /* find all active images */
-          const activeImages = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
+          /* find all images of selected options*/
+          const optionImages = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
 
           /* START IF: if option is selected */
           if (optionSelected) {
 
-            /* START LOOP: for each activeImage of  all active images */
-            for (let activeImage of activeImages) {
+            /* START LOOP: for each optionImage of  all option images */
+            for (let optionImage of optionImages) {
 
-              /* add class active for the active image */
-              activeImage.classList.add(classNames.menuProduct.imageVisible);
+              /* add class active for images of selected options */
+              optionImage.classList.add(classNames.menuProduct.imageVisible);
             }
           }
 
           /* START ELSE : if option is not selected  */
           else {
-            /* START LOOP: for each activeImage of  all active images */
-            for (let activeImage of activeImages) {
+            /* START LOOP: for each  optionImage of  all option images */
+            for (let optionImage of optionImages) {
 
-              /* remove class active for the active product */
-              activeImage.classList.remove(classNames.menuProduct.imageVisible);
+              /* remove class active for the active image */
+              optionImage.classList.remove(classNames.menuProduct.imageVisible);
             }
           }
 
