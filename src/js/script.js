@@ -178,7 +178,7 @@
           const option = param.options[optionId];
           console.log(option);
 
-          const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
+          const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > 0;
           console.log(optionSelected);
 
           /* START IF: if option is selected and option is not default */
