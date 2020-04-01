@@ -3,9 +3,10 @@
 {
   'use strict';
 
-  const select = { // obiekt zawierający selektory, które będą nam potrzebne
-    templateOf: { //obiekt 
-      menuProduct: '#template-menu-product', // jego właściwość, która zawiera selektor do naszego szablonu produktu.
+  const select = {
+    templateOf: {
+      menuProduct: '#template-menu-product',
+      cartProduct: '#template-cart-product', // CODE ADDED
     },
     containerOf: {
       menu: '#product-list',
@@ -26,11 +27,31 @@
     },
     widgets: {
       amount: {
-        input: 'input[name="amount"]',
+        input: 'input.amount', // CODE CHANGED
         linkDecrease: 'a[href="#less"]',
         linkIncrease: 'a[href="#more"]',
       },
     },
+    // CODE ADDED START
+    cart: {
+      productList: '.cart__order-summary',
+      toggleTrigger: '.cart__summary',
+      totalNumber: `.cart__total-number`,
+      totalPrice: '.cart__total-price strong, .cart__order-total .cart__order-price-sum strong',
+      subtotalPrice: '.cart__order-subtotal .cart__order-price-sum strong',
+      deliveryFee: '.cart__order-delivery .cart__order-price-sum strong',
+      form: '.cart__order',
+      formSubmit: '.cart__order [type="submit"]',
+      phone: '[name="phone"]',
+      address: '[name="address"]',
+    },
+    cartProduct: {
+      amountWidget: '.widget-amount',
+      price: '.cart__product-price',
+      edit: '[href="#edit"]',
+      remove: '[href="#remove"]',
+    },
+    // CODE ADDED END
   };
 
   const classNames = {
@@ -38,6 +59,11 @@
       wrapperActive: 'active',
       imageVisible: 'active',
     },
+    // CODE ADDED START
+    cart: {
+      wrapperActive: 'active',
+    },
+    // CODE ADDED END
   };
 
   const settings = {
@@ -45,11 +71,19 @@
       defaultValue: 1,
       defaultMin: 1,
       defaultMax: 9,
-    }
+    }, // CODE CHANGED
+    // CODE ADDED START
+    cart: {
+      defaultDeliveryFee: 20,
+    },
+    // CODE ADDED END
   };
 
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
+    // CODE ADDED START
+    cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
+    // CODE ADDED END
   };
   class Product {
     constructor(id, data) {
@@ -232,7 +266,7 @@
       }
       /*multiply price by amount */
       price *= thisProduct.amountWidget.value;
-  
+
 
       /*  [DONE] set the contents of thisProduct.priceElem to be the value of variable price */
       thisProduct.priceElem.innerHTML = price;
@@ -258,10 +292,10 @@
       const thisWidget = this;
 
 
-       thisWidget.getElements(element);
-        thisWidget.value = settings.amountWidget.defaultValue;
-        thisWidget.setValue(thisWidget.input.value);
-        thisWidget.initActions();
+      thisWidget.getElements(element);
+      thisWidget.value = settings.amountWidget.defaultValue;
+      thisWidget.setValue(thisWidget.input.value);
+      thisWidget.initActions();
 
       console.log('AmountWidget:', thisWidget);
       console.log('constructor arguments:', element);
@@ -282,9 +316,9 @@
       const newValue = parseInt(value);
 
       if (newValue != thisWidget.value && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
-  
-  
-  
+
+
+
         thisWidget.value = newValue; // będzie sprawdzać czy wartość tej stałej jest poprawna i mieści się w dopuszczalnym zakresie
         thisWidget.announce();
       }
@@ -325,11 +359,41 @@
       const thisWidget = this;
 
       const event = new Event('updated');
-      thisWidget.element.dispatchEvent(event);
+      thisWidget.element.dispatchEvent(event); //Wywołuje zdarzenie w bieżącym elemencie.
     }
 
   }
+  class Cart {
+    constructor(element) {
+      const thisCart = this;
 
+      thisCart.products = [];
+
+      thisCart.getElements(element);
+      thisCart.initActions();
+
+      console.log('new Cart', thisCart);
+    }
+
+    getElements(element) {
+
+      const thisCart = this;
+
+      thisCart.dom = {}; //obiekt, przechowywuje wszystkie elementy DOM, wyszukane w komponencie koszyka. 
+      thisCart.dom.wrapper = element;
+      thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+
+
+    }
+    initActions() {
+
+      const thisCart = this;
+      thisCart.dom.toggleTrigger.addEventListener('click', function () {
+        thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+      });
+
+    }
+  }
 
   const app = {
 
@@ -347,6 +411,15 @@
       thisApp.data = dataSource; // dataSource to obiekt,w którym zapisaliśmy definicje naszych produktów 
     },
 
+    initCart: function () {
+      const thisApp = this;
+
+      const cartElem = document.querySelector(select.containerOf.cart);
+      thisApp.cart = new Cart(cartElem);
+
+
+    },
+
 
     init: function () {
       const thisApp = this;
@@ -358,6 +431,7 @@
 
       thisApp.initData();
       thisApp.initMenu();
+      thisApp.initCart();
     },
   };
 
