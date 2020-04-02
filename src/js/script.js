@@ -280,7 +280,7 @@
       thisProduct.priceElem.innerHTML = thisProduct.price;
       console.log(thisProduct.params);
     }
-    
+
     initAmountWidget() { //tworzy instancję klasy AmountWidget i zapisuje ją we właściwości produktu.
 
       const thisProduct = this;
@@ -300,7 +300,7 @@
       app.cart.add(thisProduct); //odwolanie do cart.add 
       thisProduct.amount = thisProduct.amountWidget.value;
     }
-  
+
   }
 
   class AmountWidget {
@@ -398,7 +398,7 @@
       thisCart.dom = {}; //obiekt, przechowywuje wszystkie elementy DOM, wyszukane w komponencie koszyka. 
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
-      thisCart.dom.productList =  thisCart.dom.wrapper.querySelector(select.cart.productList);
+      thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
 
     }
     initActions() {
@@ -417,7 +417,7 @@
       const generatedHTML = templates.cartProduct(menuProduct);
 
       /* create element using utils.createElementFromHTML - tworzenie elementu DOM */
-      const generatedDOM  = utils.createDOMFromHTML(generatedHTML);
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       console.log('generatedDOM', generatedDOM);
 
       /* find cart container */ // znajdujemy kontener menu,którego selektor mamy zapisany w select.containerOf.menu.
@@ -425,12 +425,47 @@
 
       /* add element to cart  */ //dodajemy stworzony element do menu za pomocą metody appendChils
       cartContainer.appendChild(generatedDOM);
-     
+
+      thisCart.products.push(menuProduct);
+      console.log('thisCart.products', thisCart.products);
+
     }
 
-    
-  }
 
+  }
+  class CartProduct {
+
+    constructor(menuProduct, element) {
+
+      const thisCartProduct = this;
+
+      thisCartProduct.id = menuProduct.id;
+      thisCartProduct.name = menuProduct.name;
+      thisCartProduct.price = menuProduct.price;
+      thisCartProduct.priceSingle = menuProduct.priceSingle;
+      thisCartProduct.amount = menuProduct.amount;
+      thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
+
+      thisCartProduct.getElements(element);
+
+      
+      console.log('new CartProduct', thisCartProduct);
+      console.log('productData', menuProduct);
+    }
+
+    getElements(element) {
+
+      const thisCartProduct = this;
+
+      thisCartProduct.dom = {}; //obiekt, przechowywuje wszystkie elementy DOM, wyszukane w komponencie koszyka. 
+      thisCartProduct.dom.wrapper = element;
+      thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
+      thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.edit);
+      thisCartProduct.dom.remove =  thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
+    }
+  }
+  
   const app = {
 
     initMenu: function () {
