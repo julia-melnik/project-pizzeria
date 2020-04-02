@@ -186,6 +186,7 @@
       thisProduct.cartButton.addEventListener('click', function (event) {
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
     }
 
@@ -198,7 +199,7 @@
       const formData = utils.serializeFormToObject(thisProduct.form);
       console.log('formData', formData);
 
-      thisProduct.params = {};
+      thisProduct.params = {}; //???? dlaczego dopiero teraz 
 
       /* set variable price to equal thisProduct.data.price */
       let price = thisProduct.data.price;
@@ -241,7 +242,14 @@
 
           /* START IF: if option is selected */
           if (optionSelected) {
+            if (!thisProduct.params[paramId]) {
+              thisProduct.params[paramId] = {
+                label: param.label,
+                options: {},
+              };
+            }
 
+            thisProduct.params[paramId].options[optionId] = option.label;
             /* START LOOP: for each optionImage of  all option images */
             for (let optionImage of optionImages) {
 
@@ -264,15 +272,15 @@
         }
         /* END LOOP: for each paramId in thisProduct.data.params */
       }
-      /*multiply price by amount */
-      price *= thisProduct.amountWidget.value;
+      /* multiply price by amount */
+      thisProduct.priceSingle = price; //cena jednej sztuki
+      thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value; //cena całkowita
 
-
-      /*  [DONE] set the contents of thisProduct.priceElem to be the value of variable price */
-      thisProduct.priceElem.innerHTML = price;
-
+      /* set the contents of thisProduct.priceElem to be the value of variable price */
+      thisProduct.priceElem.innerHTML = thisProduct.price;
+      console.log(thisProduct.params);
     }
-
+    
     initAmountWidget() { //tworzy instancję klasy AmountWidget i zapisuje ją we właściwości produktu.
 
       const thisProduct = this;
@@ -285,6 +293,14 @@
 
 
     }
+
+    addToCart() { //przekazuje ona całą instancję jako argument metody app.cart.add. 
+      const thisProduct = this;
+      thisProduct.name = thisProduct.data.name;
+      app.cart.add(thisProduct); //odwolanie do cart.add 
+      thisProduct.amount = thisProduct.amountWidget.value;
+    }
+  
   }
 
   class AmountWidget {
@@ -382,7 +398,7 @@
       thisCart.dom = {}; //obiekt, przechowywuje wszystkie elementy DOM, wyszukane w komponencie koszyka. 
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
-
+      thisCart.dom.productList =  thisCart.dom.wrapper.querySelector(select.cart.productList);
 
     }
     initActions() {
@@ -393,6 +409,26 @@
       });
 
     }
+    add(menuProduct) { //dodaje produkt do koszyka , menuProdukt - instancja produktu 
+      const thisCart = this;
+      console.log('adding product', menuProduct);
+
+      /* generate HTML based on template czyli generuje kod HTML pojedynczego produktu */
+      const generatedHTML = templates.cartProduct(menuProduct);
+
+      /* create element using utils.createElementFromHTML - tworzenie elementu DOM */
+      const generatedDOM  = utils.createDOMFromHTML(generatedHTML);
+      console.log('generatedDOM', generatedDOM);
+
+      /* find cart container */ // znajdujemy kontener menu,którego selektor mamy zapisany w select.containerOf.menu.
+      const cartContainer = thisCart.dom.productList;
+
+      /* add element to cart  */ //dodajemy stworzony element do menu za pomocą metody appendChils
+      cartContainer.appendChild(generatedDOM);
+     
+    }
+
+    
   }
 
   const app = {
