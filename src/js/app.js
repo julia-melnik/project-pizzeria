@@ -57,13 +57,16 @@ const app = {
   
   initPages: function () {
     const thisApp = this;
-    thisApp.pages = Array.from(document.querySelector(select.containerOf.pages).children); //????
+
+    thisApp.pages = Array.from(document.querySelector(select.containerOf.pages).children); 
+
     console.log(thisApp.pages);
     /*wyszuk. kont. którego selektor jest zapisany w select.containerOf.pages,Następnie znajdziemy wszystkie 
     dzieci tego kontenera za pomocą .children. W ten sposób uzyskamy kolekcję wrapperów podstron. */
+
     //O CO CHODZI?? Dzięki temu w thisApp.pages nie będziemy mieli zapisanej kolekcji elementów, ale tablicę (array) zawierającą elementy.
 
-    thisApp.navLinks = Array.from(document.querySelectorAllll(select.nav.links)); //tablica linkow do podstron
+    thisApp.navLinks = Array.from(document.querySelectorAll(select.nav.links)); //tablica linkow do podstron
     
     // thisApp.activatePage(thisApp.pages[0].id); //wywolanie metody, 0 - pierwsza strona z indeksem 0 
     // kasujemy kod powyzej, aby Po odświeżeniu strony jednak wyświetla się ponownie menu z produktami.
@@ -71,15 +74,18 @@ const app = {
     let pagesMatchingHash = [];
 
     if (window.location.hash.length > 2) {
-      const idFromHash = window.location.hash.replace('#/', '');
+      const idFromHash = window.location.hash.replace('#/', ''); // odczytując hash i zamieniając w nim '#/' na pusty ciąg znaków ''
 
-      pagesMatchingHash = thisApp.pages.filter(function(page){ //filter pozwala na przefiltrowanie tablicy za pomocą funkcji filtrującej, przekazanej jako argument.
+      pagesMatchingHash = thisApp.pages.filter(function (page) { //??? Ta metoda pozwala na przefiltrowanie tablicy za pomocą funkcji filtrującej, przekazanej jako argument.
         return page.id == idFromHash;
       });
     }
 
     thisApp.activatePage(pagesMatchingHash.length ? pagesMatchingHash[0].id : thisApp.pages[0].id);
     
+
+
+
     for (let link of thisApp.navLinks) {
       link.addEventListener('click', function (event) {
         const clickedElement = this;
@@ -87,10 +93,10 @@ const app = {
 
         /* TODO: GET PAGE ID FROM HREF*/
         const pageId = clickedElement.getAttribute('href');
-        const href = pageId.replace('#', '');
+        const href = pageId.replace('#', ''); //jaką role pewni href 
 
         /*  TODO: activate page */
-        thisApp.activatePage(href); //????? pageIdargument id podstrony, otrzymane z href klikniętego linka.
+        thisApp.activatePage(href); //????? pageId argument id podstrony, otrzymane z href klikniętego linka.
       });
     }
 
@@ -102,7 +108,7 @@ const app = {
     const thisApp = this;
 
     for (let link of thisApp.navLinks) {
-      link.classList.toggle(classNames.nav.active, link.getAttribute('href') == '#' + pageId);
+      link.classList.toggle(classNames.nav.active, link.getAttribute('href') == '#' + pageId); //???
     }
     for (let page of thisApp.pages) {
       page.classList.toggle(classNames.nav.active, page.getAttribute('href') == '#' + pageId);
