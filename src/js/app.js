@@ -9,15 +9,16 @@ const app = {
     const thisApp = this;
     //console.log('thisApp.data:', thisApp.data);
     for (let productData in thisApp.data.products) { // tworzymy nową instancję dla każdego produktu. 
-      new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
+      new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]); //???? po wywolaniu zapy. AJAX dodal. ID, why 
+
     }
   },
 
 
-  initData: function () { // metoda. gdzie zapisalismy def.prod i chcemy z tego skorzystać
+  initData: function () { 
     const thisApp = this;
 
-    thisApp.data = {}; // dataSource to obiekt,w którym zapisaliśmy definicje naszych produktów 
+    thisApp.data = {}; 
     console.log(thisApp.data);
 
     const url = settings.db.url + '/' + settings.db.product;
@@ -58,13 +59,11 @@ const app = {
   initPages: function () {
     const thisApp = this;
 
-    thisApp.pages = Array.from(document.querySelector(select.containerOf.pages).children); 
+    thisApp.pages = Array.from(document.querySelector(select.containerOf.pages).children);
 
     console.log(thisApp.pages);
     /*wyszuk. kont. którego selektor jest zapisany w select.containerOf.pages,Następnie znajdziemy wszystkie 
     dzieci tego kontenera za pomocą .children. W ten sposób uzyskamy kolekcję wrapperów podstron. */
-
-    //O CO CHODZI?? Dzięki temu w thisApp.pages nie będziemy mieli zapisanej kolekcji elementów, ale tablicę (array) zawierającą elementy.
 
     thisApp.navLinks = Array.from(document.querySelectorAll(select.nav.links)); //tablica linkow do podstron
     
@@ -76,15 +75,12 @@ const app = {
     if (window.location.hash.length > 2) {
       const idFromHash = window.location.hash.replace('#/', ''); // odczytując hash i zamieniając w nim '#/' na pusty ciąg znaków ''
 
-      pagesMatchingHash = thisApp.pages.filter(function (page) { //??? Ta metoda pozwala na przefiltrowanie tablicy za pomocą funkcji filtrującej, przekazanej jako argument.
+      pagesMatchingHash = thisApp.pages.filter(function (page) {//Ta metoda pozwala na przefiltrowanie tablicy za pomocą funkcji filtrującej, przekazanej jako argument.
         return page.id == idFromHash;
       });
     }
 
     thisApp.activatePage(pagesMatchingHash.length ? pagesMatchingHash[0].id : thisApp.pages[0].id);
-    
-
-
 
     for (let link of thisApp.navLinks) {
       link.addEventListener('click', function (event) {
@@ -93,10 +89,10 @@ const app = {
 
         /* TODO: GET PAGE ID FROM HREF*/
         const pageId = clickedElement.getAttribute('href');
-        const href = pageId.replace('#', ''); //jaką role pewni href 
+        const href = pageId.replace('#', ''); 
 
         /*  TODO: activate page */
-        thisApp.activatePage(href); //????? pageId argument id podstrony, otrzymane z href klikniętego linka.
+        thisApp.activatePage(href);
       });
     }
 
@@ -108,10 +104,10 @@ const app = {
     const thisApp = this;
 
     for (let link of thisApp.navLinks) {
-      link.classList.toggle(classNames.nav.active, link.getAttribute('href') == '#' + pageId); //???
+      link.classList.toggle(classNames.nav.active, link.getAttribute('href') == '#' + pageId);
     }
     for (let page of thisApp.pages) {
-      page.classList.toggle(classNames.nav.active, page.getAttribute('href') == '#' + pageId);
+      page.classList.toggle(classNames.nav.active, page.getAttribute('id') == pageId);
     }
   
     window.location.hash = '#/' + pageId; 
@@ -140,6 +136,7 @@ const app = {
 
     thisApp.initData();
     thisApp.initCart();
+    thisApp.initPages();
     thisApp.initBooking();
 
   },

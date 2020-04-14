@@ -11,7 +11,7 @@ export class Cart {
 
     thisCart.products = [];
 
-    thisCart.getElements(element);
+    thisCart.getElements(element);  
     thisCart.initActions();
     //console.log('new Cart', thisCart);
   }
@@ -21,14 +21,15 @@ export class Cart {
 
     const thisCart = this;
 
-    thisCart.dom = {}; //obiekt, przechowywuje wszystkie elementy DOM, wyszukane w komponencie koszyka. 
+    thisCart.dom = {}; 
     thisCart.dom.wrapper = element;
     thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
     thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
+
     thisCart.renderTotalsKeys = ['totalNumber', 'totalPrice', 'subtotalPrice', 'deliveryFee']; //do wyswietl. aktualnych sum 
     for (let key of thisCart.renderTotalsKeys) {
       thisCart.dom[key] = thisCart.dom.wrapper.querySelectorAll(select.cart[key]);
-      //Każda z nich będzie zawierać kolekcję elementów znalezionych za pomocą odpowiedniego selektora.
+      
     }
     thisCart.dom.form = document.querySelector(select.cart.form);
     thisCart.dom.phone = document.querySelector(select.cart.phone);
@@ -79,9 +80,10 @@ export class Cart {
     console.log(thisCart.products);
 
 
-    for (let singleProduct of thisCart.products) {
+    for (let singleProduct of thisCart.products) { 
       const orderedProduct = singleProduct.getData;
       payload.products.push(orderedProduct);
+      //push - Dodaje jeden lub więcej elementów na koniec tablicy i zwraca jej nową długość. Metoda ta zmienia długość tablicy.
     }
 
     const options = {
@@ -118,9 +120,11 @@ export class Cart {
     /* add element to cart  */ //dodajemy stworzony element do menu za pomocą metody appendChils
     cartContainer.appendChild(generatedDOM);
 
-    thisCart.products.push(new CartProduct(menuProduct, generatedDOM)); /* ????????jednocześnie stworzymy nową instancję klasy new CartProduct 
-      oraz dodamyją do tablicy thisCart.products */
+    thisCart.products.push(new CartProduct(menuProduct, generatedDOM)); //????
+
     //push - Dodaje jeden lub więcej elementów na koniec tablicy i zwraca jej nową długość. Metoda ta zmienia długość tablicy.
+    //jednocześnie stworzymy nową instancję klasy new CartProduct oraz dodamyją do tablicy thisCart.products 
+    
     //console.log('thisCart.products', thisCart.products);
 
     thisCart.update();
@@ -147,7 +151,8 @@ export class Cart {
 
     for (let key of thisCart.renderTotalsKeys) { //wyswietlenie aktualnych cen 
       for (let elem of thisCart.dom[key]) { //pętlę iterującą po każdym elemencie z kolekcji,
-        elem.innerHTML = thisCart[key];
+        elem.innerHTML = thisCart[key]; //???
+        //Dla każdego z tych elementów ustawiamy właściwość koszyka, która ma taki sam klucz.
       }
     }
   }

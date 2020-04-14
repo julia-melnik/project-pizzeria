@@ -85,12 +85,12 @@ export class Product {
   }
 
 
-  initOrderForm() { //odpowiedzialna za dodanie listenerów eventów do formularza, jego kontrolek, oraz guzika dodania do koszyka.
+  initOrderForm() { //Event listenery dla formularza
     const thisProduct = this;
     //console.log(this.initOrderForm);
 
-    thisProduct.form.addEventListener('submit', function (event) {
-      event.preventDefault();
+    thisProduct.form.addEventListener('submit', function (event) {  //dlaczego turaj dod. event, a ponizej nie 
+      event.preventDefault();  
       thisProduct.processOrder();
     });
 
@@ -113,12 +113,13 @@ export class Product {
     //console.log(thisProduct);
 
     /* [DONE] read all data from the form (using utils.serializeFormToObject) and save it to const formData */
-    const formData = utils.serializeFormToObject(thisProduct.form);
+    const formData = utils.serializeFormToObject(thisProduct.form); //odczyt.wartocsi wybranych 
     //console.log('formData', formData);
 
     thisProduct.params = {}; //???? dlaczego dopiero teraz 
 
-    /* set variable price to equal thisProduct.data.price */
+    /* set variable price to equal thisProduct.data.price */ 
+    //OBLICZAMY CENE 
     let price = thisProduct.data.price;
 
     /* START LOOP: for each paramId in thisProduct.data.params */
@@ -158,7 +159,7 @@ export class Product {
         const optionImages = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
 
         /* START IF: if option is selected */
-        if (optionSelected) {
+        if (optionSelected) { //???
           if (!thisProduct.params[paramId]) {
             thisProduct.params[paramId] = {
               label: param.label,
@@ -197,6 +198,7 @@ export class Product {
     thisProduct.priceElem.innerHTML = thisProduct.price;
     //console.log(thisProduct.params);
   }
+  
 
   initAmountWidget() { //tworzy instancję klasy AmountWidget i zapisuje ją we właściwości produktu.
 
@@ -214,7 +216,7 @@ export class Product {
   addToCart() { //przekazuje ona całą instancję jako argument metody app.cart.add. 
     const thisProduct = this;
 
-    thisProduct.amount = thisProduct.amountWidget.value; //??
+    thisProduct.amount = thisProduct.amountWidget.value; 
     thisProduct.name = thisProduct.data.name;
 
     //app.cart.add(thisProduct); //odwolanie do cart.add 

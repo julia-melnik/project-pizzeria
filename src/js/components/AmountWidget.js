@@ -1,30 +1,33 @@
 import { select, settings, } from '../settings.js';
+import { BaseWidget } from './BaseWidget.js';
 
 
-export class AmountWidget {
-  constructor(element) { //otrzymuje odniesienie do elementu, w którym widget ma zostać zainicjowany
+export class AmountWidget extends BaseWidget { //dodaliśmy informację, że jest ona rozszerzeniem klasy BaseWidget
+  constructor(wrapper)  { //otrzymuje odniesienie do elementu, w którym widget ma zostać zainicjowany
+    super(wrapper, settings.amountWidget.defaultValue);
+    
     const thisWidget = this;
 
-
-    thisWidget.getElements(element);
-    thisWidget.value = settings.amountWidget.defaultValue;
-    thisWidget.setValue(thisWidget.input.value);
+    thisWidget.getElements();
     thisWidget.initActions();
 
+    //thisWidget.value = settings.amountWidget.defaultValue;
+    //thisWidget.setValue(thisWidget.input.value);
+   
     //console.log('AmountWidget:', thisWidget);
     //console.log('constructor arguments:', element);
   }
 
-  getElements(element) {
+  getElements() {
     const thisWidget = this;
 
-    thisWidget.element = element;
-    thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
-    thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
-    thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    //thisWidget.element = element;
+    thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.amount.input);
+    thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkDecrease);
+    thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkIncrease);
   }
-
-  setValue(value) { //będziemy używać do ustawiania nowej wartości widgetu.
+  /* NIE POTRZEBUJEMY, poniewaz mamy basewidget 
+  setValue(value) { 
     const thisWidget = this;
 
     const newValue = parseInt(value);
@@ -33,49 +36,63 @@ export class AmountWidget {
 
 
 
-      thisWidget.value = newValue; // będzie sprawdzać czy wartość tej stałej jest poprawna i mieści się w dopuszczalnym zakresie
+      thisWidget.value = newValue; 
       thisWidget.announce();
     }
 
-    thisWidget.input.value = thisWidget.value;  //nową wartość inputa. Dzięki temu nowa wartość wy
+    thisWidget.input.value = thisWidget.value;  
+  } */
+
+  isValid(newValue){
+    return !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax;
   }
+  
+  
   initActions() {
 
     const thisWidget = this;
 
-    thisWidget.input.addEventListener('change', function () {
-
-      thisWidget.setValue(thisWidget.input.value);
+    thisWidget.dom.input.addEventListener('change', function () {
+      //thisWidget.setValue(thisWidget.input.value);
+      thisWidget.value = thisWidget.dom.input.value;
+      console.log(thisWidget.input.value);
 
     });
 
-    thisWidget.linkDecrease.addEventListener('click', function (event) {
-
+    thisWidget.dom.linkDecrease.addEventListener('click', function () {
       event.preventDefault();
-
-      thisWidget.setValue(thisWidget.value - 1);
+      //thisWidget.setValue(thisWidget.value - 1);
+      thisWidget.value = parseInt(thisWidget.dom.input.value) - 1; 
 
 
     });
 
-    thisWidget.linkIncrease.addEventListener('click', function (event) {
-
+    thisWidget.dom.linkIncrease.addEventListener('click', function () {
       event.preventDefault();
-
-      thisWidget.setValue(thisWidget.value + 1);
+      //thisWidget.setValue(thisWidget.value + 1);
+      thisWidget.value = parseInt(thisWidget.dom.input.value) + 1; 
+      
 
 
     });
 
 
-  }
-  announce() { //Będzie ona tworzyła instancje klasy Event. Następnie, ten event zostanie wywołany na kontenerze naszego widgetu.
+  }  
+  
+  renderValue(){
     const thisWidget = this;
 
-    const event = new CustomEvent('updated', { //????custom dod. custom dla Aktualizacja sum po zmianie ilości
-      bubbles: true //event po wykonaniu na jakimś elemencie będzie przekazany jego rodzicowi, oraz rodzicowi rodzica
-    });
-    thisWidget.element.dispatchEvent(event); //Wywołuje zdarzenie w bieżącym elemencie.
+    thisWidget.dom.input.value = thisWidget.value;
   }
+  
+  // ANNOUNCE nie będzie nam już potrzebna, ponieważ zostanie "dostarczona" przez klasę BaseWidget
+
+  /* announce() { Będzie ona tworzyła instancje klasy Event. Następnie, ten event zostanie wywołany na kontenerze naszego widgetu.
+    const thisWidget = this;
+   const event = new CustomEvent('updated', { custom dod. custom dla Aktualizacja sum po zmianie ilości
+       bubbles: true          event po wykonaniu na jakimś elemencie będzie przekazany jego rodzicowi, oraz rodzicowi rodzica
+   });
+   thisWidget.element.dispatchEvent(event); Wywołuje zdarzenie w bieżącym elemencie. 
+   } */
 
 }

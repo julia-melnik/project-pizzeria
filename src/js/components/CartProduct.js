@@ -28,7 +28,7 @@ export class CartProduct {
 
     const thisCartProduct = this;
 
-    thisCartProduct.dom = {}; //obiekt, przechowywuje wszystkie elementy DOM, wyszukane w komponencie koszyka. 
+    thisCartProduct.dom = {}; 
 
     thisCartProduct.dom.wrapper = element;
     thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
@@ -41,12 +41,12 @@ export class CartProduct {
 
     const thisCartProduct = this;
 
-    thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget); //? O CO CHODZI Z NEW 
+    thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget); 
 
     thisCartProduct.dom.amountWidget.addEventListener('updated', function () {
       thisCartProduct.amount = thisCartProduct.amountWidget.value;
       thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
-      thisCartProduct.dom.price.innerHTML = thisCartProduct.price; //ZAMSTEPUJE obliczoną w js wartosc price na  stworzony element dom dla price??
+      thisCartProduct.dom.price.innerHTML = thisCartProduct.price; 
     });
 
 
@@ -58,10 +58,10 @@ export class CartProduct {
     const event = new CustomEvent('remove', {
       bubbles: true,
       detail: { //przekazujemy odwołanie do tej instancji, dla której kliknięto guzik usuwania.
-        cartProduct: thisCartProduct,
+        cartProduct: thisCartProduct, //???
       }
     });
-    thisCartProduct.dom.wrapper.dispatchEvent(event);
+    thisCartProduct.dom.wrapper.dispatchEvent(event); 
   }
 
   initActions() {
@@ -78,7 +78,7 @@ export class CartProduct {
     });
   }
 
-  getData() {
+  getData() { //?? będzie zwracać wszystkie informacje o zamawianym produkcie
     const thisCartProduct = this;
 
     return thisCartProduct.id, thisCartProduct.name, thisCartProduct.price, thisCartProduct.priceSingle, thisCartProduct.amount, thisCartProduct.params;
