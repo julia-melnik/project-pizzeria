@@ -22,7 +22,7 @@ export class HourPicker extends BaseWidget {
   }
 
 
-  initPlagin() {
+  initPlugin() {
     const thisWidget = this;
 
     rangeSlider.create(thisWidget.dom.input);

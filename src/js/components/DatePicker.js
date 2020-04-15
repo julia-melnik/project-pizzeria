@@ -1,24 +1,24 @@
 /* global flatpickr */
 import { BaseWidget } from './BaseWidget.js';
 import { utils } from '../utils.js';
-import { select, settings, } from '../settings.js';
+import { select, settings,  } from '../settings.js';
 
 
 export class DatePicker extends BaseWidget {
   constructor(wrapper) {
     super(wrapper, utils.dateToStr(new Date()));
-
     const thisWidget = this;
 
     thisWidget.dom = {};
-    console.log(thisWidget.dom.wrapper);
+    // console.log(thisWidget.dom.wrapper);
     thisWidget.dom.wrapper = wrapper;
+
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.input);
 
     thisWidget.initPlugin();
   }
 
-  initPlagin() { //app. komp., która rozszerza funkcjon. przgłądarki 
+  initPlugin() { //app. komp., która rozszerza funkcjon. przgłądarki 
     const thisWidget = this;
 
     thisWidget.minDate = new Date(thisWidget.value);  // tworzy obiekt daty, którego wartość to "teraz", czyli data i godzina w momencie wykonania tego kodu JS.

@@ -58,7 +58,7 @@ export class CartProduct {
     const event = new CustomEvent('remove', {
       bubbles: true,
       detail: { //przekazujemy odwołanie do tej instancji, dla której kliknięto guzik usuwania.
-        cartProduct: thisCartProduct, //???
+        cartProduct: thisCartProduct, 
       }
     });
     thisCartProduct.dom.wrapper.dispatchEvent(event); 
@@ -78,7 +78,7 @@ export class CartProduct {
     });
   }
 
-  getData() { //?? będzie zwracać wszystkie informacje o zamawianym produkcie
+  getData() { //wszystko zebrane w jednym obiekcie
     const thisCartProduct = this;
 
     return thisCartProduct.id, thisCartProduct.name, thisCartProduct.price, thisCartProduct.priceSingle, thisCartProduct.amount, thisCartProduct.params;
