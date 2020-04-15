@@ -7,17 +7,16 @@ import { BaseWidget } from './BaseWidget.js';
 
 export class HourPicker extends BaseWidget {
   constructor(wrapper) {
-    super(wrapper, settings.hours.open);
+    super(wrapper, settings.hours.open, settings.hours.close);
 
     const thisWidget = this;
 
     thisWidget.dom = {};
     thisWidget.dom.wrapper = wrapper;
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.hourPicker.input);
-    thisWidget.dom.output = thisWidget.dom.wrapper.querySelector(select.widgets.hourPicker.input);
-    
-    thisWidget.initPlugin();
+    thisWidget.dom.output = thisWidget.dom.wrapper.querySelector(select.widgets.hourPicker.output);
 
+    thisWidget.initPlugin();
     thisWidget.value = thisWidget.dom.input.value;
   }
 
