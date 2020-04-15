@@ -1,4 +1,4 @@
-import { select, settings, } from '../settings.js';
+import { select, settings } from '../settings.js';
 import { BaseWidget } from './BaseWidget.js';
 
 
@@ -9,9 +9,10 @@ export class AmountWidget extends BaseWidget { //dodaliśmy informację, że jes
     const thisWidget = this;
 
     thisWidget.getElements();
+    thisWidget.value = settings.amountWidget.defaultValue;
     thisWidget.initActions();
-
-    //thisWidget.value = settings.amountWidget.defaultValue;
+   
+    
     //thisWidget.setValue(thisWidget.input.value);
    
     //console.log('AmountWidget:', thisWidget);
@@ -56,26 +57,19 @@ export class AmountWidget extends BaseWidget { //dodaliśmy informację, że jes
       //thisWidget.setValue(thisWidget.input.value);
       thisWidget.value = thisWidget.dom.input.value;
       console.log(thisWidget.input.value);
-
     });
 
     thisWidget.dom.linkDecrease.addEventListener('click', function () {
       event.preventDefault();
       //thisWidget.setValue(thisWidget.value - 1);
       thisWidget.value = parseInt(thisWidget.dom.input.value) - 1; 
-
-
     });
 
     thisWidget.dom.linkIncrease.addEventListener('click', function () {
       event.preventDefault();
       //thisWidget.setValue(thisWidget.value + 1);
       thisWidget.value = parseInt(thisWidget.dom.input.value) + 1; 
-      
-
-
     });
-
 
   }  
   
