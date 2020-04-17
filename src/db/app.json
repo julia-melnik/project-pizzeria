@@ -1,5 +1,5 @@
 {
-    "product": [
+    "product": [ 
         {
             "id": "cake",
             "class": "small",
@@ -207,7 +207,7 @@
   "event": [
     {
       "id": 1,
-      "date": "2019-01-01",
+      "date": "2019-04-16",
       "hour": "12:30",
       "table": 1,
       "repeat": false,
@@ -256,5 +256,16 @@
       "starters": ["lemonWater"]
     }
   ],
-  "booking": []
+  "booking": [
+    {
+        "id": 4,
+        "date": "2019-04-16",
+        "hour": "13:00",
+        "table": 2,
+        "repeat": "daily",
+        "duration": 4,
+        "ppl": 3,
+        "starters": []
+      }
+  ]
 }

@@ -15,11 +15,11 @@ const app = {
   },
 
 
-  initData: function () { 
+  initData: function () {
     const thisApp = this;
 
-    thisApp.data = {}; 
-    console.log(thisApp.data);
+    thisApp.data = {};
+    //console.log(thisApp.data);
 
     const url = settings.db.url + '/' + settings.db.product;
 
@@ -28,7 +28,7 @@ const app = {
         return rawResponse.json();
       })
       .then(function (parsedResponse) {  //po otrzymaniu skonwertowanej odpowiedzi parsedResponse, wyświetlamy ją w konsoli.
-        console.log('parsedResponse', parsedResponse);
+        //console.log('parsedResponse', parsedResponse);
 
         // save parsedResponse as thisApp.data.products
 
@@ -39,7 +39,7 @@ const app = {
         thisApp.initMenu();
 
       });
-    console.log('thisApp.data', JSON.stringify(thisApp.data));
+    //console.log('thisApp.data', JSON.stringify(thisApp.data));
   },
 
   initCart: function () {
@@ -55,21 +55,21 @@ const app = {
 
   },
 
-  
+
   initPages: function () {
     const thisApp = this;
 
     thisApp.pages = Array.from(document.querySelector(select.containerOf.pages).children);
 
-    console.log(thisApp.pages);
+    //console.log(thisApp.pages);
     /*wyszuk. kont. którego selektor jest zapisany w select.containerOf.pages,Następnie znajdziemy wszystkie 
     dzieci tego kontenera za pomocą .children. W ten sposób uzyskamy kolekcję wrapperów podstron. */
 
     thisApp.navLinks = Array.from(document.querySelectorAll(select.nav.links)); //tablica linkow do podstron
-    
+
     // thisApp.activatePage(thisApp.pages[0].id); //wywolanie metody, 0 - pierwsza strona z indeksem 0 
     // kasujemy kod powyzej, aby Po odświeżeniu strony jednak wyświetla się ponownie menu z produktami.
-    
+
     let pagesMatchingHash = [];
 
     if (window.location.hash.length > 2) {
@@ -89,7 +89,7 @@ const app = {
 
         /* TODO: GET PAGE ID FROM HREF*/
         const pageId = clickedElement.getAttribute('href');
-        const href = pageId.replace('#', ''); 
+        const href = pageId.replace('#', '');
 
         /*  TODO: activate page */
         thisApp.activatePage(href);
@@ -109,8 +109,8 @@ const app = {
     for (let page of thisApp.pages) {
       page.classList.toggle(classNames.nav.active, page.getAttribute('id') == pageId);
     }
-  
-    window.location.hash = '#/' + pageId; 
+
+    window.location.hash = '#/' + pageId;
     // # - strona nie przeładuje się, jeśli do adresu dodamy znak hash #. 
     // / - sprawi, że strona nie będzie się przewijać. 
     // pageId  - id aktywowanej podstrony.
