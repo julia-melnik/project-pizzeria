@@ -161,7 +161,8 @@ export class Cart {
   remove(cartProduct) {
     const thisCart = this;
     const index = thisCart.products.indexOf(cartProduct);
-    thisCart.products.splice(index, 1);
+    //Kiedy chcemy sprawdzić, jaki indeks ma pewna konkretna wartość, możemy to zrobić za pomocą metody indexOf
+    thisCart.products.splice(index, 1);//usuwanie elementu z tablicy,
     cartProduct.dom.wrapper.remove();
     thisCart.update();
 

@@ -48,7 +48,8 @@ const app = {
     const cartElem = document.querySelector(select.containerOf.cart);
     thisApp.cart = new Cart(cartElem);
 
-    thisApp.thisProductList = document.querySelector(select.containerOf.menu);
+    thisApp.thisProductList = document.querySelector(select.containerOf.menu); 
+
     thisApp.thisProductList.addEventListener('add-to-cart', function (event) {
       app.cart.add(event.detail.product);
     });
@@ -95,10 +96,7 @@ const app = {
         thisApp.activatePage(href);
       });
     }
-
-
   },
-
 
   activatePage: function (pageId) {
     const thisApp = this;
