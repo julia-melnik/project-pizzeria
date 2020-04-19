@@ -12,7 +12,6 @@ export class DatePicker extends BaseWidget {
     thisWidget.dom = {};
     // console.log(thisWidget.dom.wrapper);
     thisWidget.dom.wrapper = wrapper;
-
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.input);
 
     thisWidget.initPlugin();

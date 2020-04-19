@@ -207,8 +207,8 @@
   "event": [
     {
       "id": 1,
-      "date": "2019-04-18",
-      "hour": "12:30",
+      "date": "2020-04-19",
+      "hour": "16:30",
       "table": 1,
       "repeat": false,
       "duration": 4,
@@ -217,7 +217,7 @@
     },
     {
       "id": 2,
-      "date": "2019-01-01",
+      "date": "2020-04-01",
       "hour": "16:00",
       "table": 3,
       "repeat": "daily",
@@ -227,7 +227,7 @@
     },
     {
       "id": 3,
-      "date": "2019-01-01",
+      "date": "2020-04-01",
       "hour": "12:00",
       "table": 3,
       "repeat": "daily",
@@ -237,7 +237,7 @@
     },
     {
       "id": 4,
-      "date": "2019-01-01",
+      "date": "2020-04-01",
       "hour": "13:00",
       "table": 2,
       "repeat": "daily",
@@ -247,7 +247,7 @@
     },
     {
       "id": 5,
-      "date": "2019-01-01",
+      "date": "2020-04-01",
       "hour": "18:00",
       "table": 2,
       "repeat": "daily",
@@ -256,16 +256,5 @@
       "starters": ["lemonWater"]
     }
   ],
-  "booking": [
-    {
-        "id": 4,
-        "date": "2019-04-16",
-        "hour": "13:00",
-        "table": 2,
-        "repeat": "daily",
-        "duration": 4,
-        "ppl": 3,
-        "starters": []
-      }
-  ]
+  "booking": []
 }

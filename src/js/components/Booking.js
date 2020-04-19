@@ -43,7 +43,7 @@ export class Booking {
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
 
-    thisBooking.dom.wrapper.addEventListener('update', function () {
+    thisBooking.dom.hourPicker.addEventListener('updated', function () {
       thisBooking.updateDOM();
     });
 
@@ -64,7 +64,7 @@ export class Booking {
       eventsCurrent: settings.db.notRepeatParam + '&' + utils.queryParams(startEndDates),
       eventsRepeat: settings.db.repeatParam + '&' + utils.queryParams(endDate),
     };
-    console.log('getData params', params);
+    //console.log('getData params', params);
 
     const urls = { //zapiszemy pełne adresy zapytań.
       booking: settings.db.url + '/' + settings.db.booking + '?' + params.booking,
@@ -72,7 +72,7 @@ export class Booking {
       eventsRepeat: settings.db.url + '/' + settings.db.event + '?' + params.eventsRepeat,
     };
 
-    console.log('getData urls', urls);
+    //console.log('getData urls', urls);
 
     Promise.all([
       fetch(urls.booking),
@@ -98,20 +98,20 @@ export class Booking {
     thisBooking.booked = {};
 
     for (let event of bookings) {
-      console.log('event', event);
+      //console.log('event', event);
       thisBooking.makeBooked(event.date, event.hour, event.duration, event.table);
     }
 
     console.log('eventsCurrent', eventsCurrent);
 
     for (let event of eventsCurrent) {
-      console.log('event', event);
+      //console.log('event', event);
       thisBooking.makeBooked(event.date, event.hour, event.duration, event.table);
     }
 
     const minDate = thisBooking.datePicker.minDate;
     const maxDate = thisBooking.datePicker.maxDate;
-
+    console.log('eventsRepeat', eventsRepeat);
     for (let event of eventsRepeat) {
       if (event.repeat == 'daily') {
         for (let eventDate = minDate; eventDate <= maxDate; eventDate = utils.addDays(eventDate, 1)) { //aby uzyskać datę przesuniętą o ileś dni, 
@@ -119,6 +119,7 @@ export class Booking {
           ///???wielokrotnie uruchomić metodę makeBooked – raz dla każdego dnia z zakresu dat zdefiniowanego dla date-pickera.
           thisBooking.makeBooked(utils.dateToStr(event), event.hour, event.duration, event.table);
           //?? przekształca obiekt daty na tekst w formacie rok-miesiąc-dzień,
+          
         }
       }
     }
@@ -132,14 +133,14 @@ export class Booking {
     const thisBooking = this;
 
     thisBooking.booked[date] = {};
-    console.log(thisBooking.booked[date]);
+    //console.log(thisBooking.booked[date]);
 
     const bookedTime = utils.hourToNumber(hour);
 
     for (let bookedPeriod = bookedTime; bookedPeriod < bookedTime + duration; bookedPeriod += 0.5) {
 
       thisBooking.booked[date][bookedPeriod] = [];
-      console.log('thisBooking.booked[date][bookedPeriod]: ', thisBooking.booked[date][bookedPeriod]);
+      //console.log('thisBooking.booked[date][bookedPeriod]: ', thisBooking.booked[date][bookedPeriod]);
       thisBooking.booked[date][bookedPeriod].push(table);
     }
 
@@ -147,7 +148,7 @@ export class Booking {
 
   updateDOM() {
     const thisBooking = this;
-    console.log('updateDOM');
+    //console.log('updateDOM');
 
     thisBooking.date = thisBooking.datePicker.value;
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
@@ -165,7 +166,7 @@ export class Booking {
         table.classList.add(classNames.booking.tableBooked);
       } else {
         table.classList.remove(classNames.booking.tableBooked);
-        console.log('table', table);
+        //console.log('table', table);
       }
     }
 
