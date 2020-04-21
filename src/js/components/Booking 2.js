@@ -31,8 +31,7 @@ export class Booking {
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
-    thisBooking.dom.starters = element.querySelectorAll(select.booking.starter);
-    
+
   }
 
 
@@ -44,13 +43,8 @@ export class Booking {
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
 
-    thisBooking.dom.hourPicker.addEventListener('updated', function () {
+    thisBooking.dom.wrapper.addEventListener('updated', function () {
       thisBooking.updateDOM();
-    });
-    thisBooking.dom.wrapper.addEventListener('submit', function () {
-      event.preventDefault();
-      thisBooking.sendBooking();
-      thisBooking.getData();
     });
 
   }
@@ -103,6 +97,7 @@ export class Booking {
     const thisBooking = this;
     thisBooking.booked = {};
 
+
     for (let event of bookings) {
       //console.log('event', event);
       thisBooking.makeBooked(event.date, event.hour, event.duration, event.table);
@@ -121,16 +116,16 @@ export class Booking {
     for (let event of eventsRepeat) {
       if (event.repeat == 'daily') {
         for (let eventDate = minDate; eventDate <= maxDate; eventDate = utils.addDays(eventDate, 1)) { //aby uzyskać datę przesuniętą o ileś dni, 
-         
+
           ///???wielokrotnie uruchomić metodę makeBooked – raz dla każdego dnia z zakresu dat zdefiniowanego dla date-pickera.
           thisBooking.makeBooked(utils.dateToStr(event), event.hour, event.duration, event.table);
           //?? przekształca obiekt daty na tekst w formacie rok-miesiąc-dzień,
-          
+
         }
       }
     }
 
-    
+
     thisBooking.updateDOM();
   }
 
@@ -174,68 +169,15 @@ export class Booking {
         table.classList.remove(classNames.booking.tableBooked);
         //console.log('table', table);
       }
-
-      table.addEventListener('click', function () { 
-        console.log('clicked table', table);
-
-        /* prevent default action for event */
-        event.preventDefault();
-
-        /* toggle tableBooked class on element of table  */
-        table.classList.toggle('classNames.booking.tableBooked'); 
-
-        const selectedTable = document.querySelector(classNames.booking.tableBooked);
-        console.log(selectedTable);
-        
-        if(!selectedTable){ 
-          table.classList.add('classNames.booking.tableBooked');
-        } else {
-          console.log('The table is booked');
-        }
-
-      });
     }
 
 
   }
 
-  sendBooking() { //wysyłka rezerwacji do API,
-    const thisBooking = this;
-    const url = settings.db.url + '/' + settings.db.booking;
+  sendBooked() {
+    thisBooking = this;
+    console.log(thisBooking);
 
-    const payload = {
-      date: thisBooking.date,
-      hour: utils.numberToHour(thisBooking.hour),
-      table: thisBooking.tableIsBooked,
-      duration: thisBooking.hoursAmount.value,
-      ppl: thisBooking.peopleAmount.value,
-      starters: [],
-    
-    };
-
-    for (let starter of thisBooking.dom.starters) {
-      if (starter.checked == true) {
-        payload.starters.push(starter.value);
-      }
-    }
-
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    };
-
-    fetch(url, options)
-      .then(function (response) {
-        return response.json();
-      }).then(function (parsedResponse) {
-        console.log('parsedResponseBOOKING', parsedResponse);
-        thisBooking.makeBooked(payload.date, payload.hour, payload.table, payload.duration);
-      });
-
-    
   }
 
 }

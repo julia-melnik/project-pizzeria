@@ -213,7 +213,7 @@ export class Product {
 
   }
 
-  addToCart() { //przekazuje ona całą instancję jako argument metody app.cart.add. 
+  addToCart() { //przekazuje  całą instancję jako argument metody app.cart.add. 
     const thisProduct = this;
 
     thisProduct.amount = thisProduct.amountWidget.value; 
