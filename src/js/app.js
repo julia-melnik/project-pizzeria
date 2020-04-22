@@ -48,7 +48,7 @@ const app = {
     const cartElem = document.querySelector(select.containerOf.cart);
     thisApp.cart = new Cart(cartElem);
 
-    thisApp.thisProductList = document.querySelector(select.containerOf.menu); 
+    thisApp.thisProductList = document.querySelector(select.containerOf.menu);
 
     thisApp.thisProductList.addEventListener('add-to-cart', function (event) {
       app.cart.add(event.detail.product);
@@ -70,6 +70,7 @@ const app = {
 
     // thisApp.activatePage(thisApp.pages[0].id); //wywolanie metody, 0 - pierwsza strona z indeksem 0 
     // kasujemy kod powyzej, aby Po odświeżeniu strony jednak wyświetla się ponownie menu z produktami.
+    thisApp.navBox = Array.from(document.querySelectorAll('.nav-box a'));
 
     let pagesMatchingHash = [];
 
@@ -94,6 +95,16 @@ const app = {
 
         /*  TODO: activate page */
         thisApp.activatePage(href);
+      });
+    }
+
+    for (let box of thisApp.navBox) {
+      box.addEventListener('click', function (event) {
+        const clickedElement = this;
+        event.preventDefault();
+        const boxId = clickedElement.getAttribute('href');
+        const href = boxId.replace('#', '');
+        thisApp.activatePage(href); //????? nie pewna 
       });
     }
   },
@@ -123,6 +134,8 @@ const app = {
   },
 
 
+
+
   init: function () {
     const thisApp = this;
     //console.log('*** App starting ***');
@@ -136,6 +149,7 @@ const app = {
     thisApp.initCart();
     thisApp.initPages();
     thisApp.initBooking();
+
 
   },
 };

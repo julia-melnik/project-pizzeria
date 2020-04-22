@@ -93,7 +93,7 @@ export class Booking {
         ]);
       })
       .then(function ([bookings, eventsCurrent, eventsRepeat]) {
-        thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
+        thisBooking.parseData(bookings,eventsRepeat, eventsCurrent);
       });
 
   }
@@ -104,28 +104,24 @@ export class Booking {
     thisBooking.booked = {};
 
     for (let event of bookings) {
-      //console.log('event', event);
+  
       thisBooking.makeBooked(event.date, event.hour, event.duration, event.table);
     }
 
     console.log('eventsCurrent', eventsCurrent);
 
     for (let event of eventsCurrent) {
-      //console.log('event', event);
+
       thisBooking.makeBooked(event.date, event.hour, event.duration, event.table);
     }
 
     const minDate = thisBooking.datePicker.minDate;
     const maxDate = thisBooking.datePicker.maxDate;
-    console.log('eventsRepeat', eventsRepeat);
+  
     for (let event of eventsRepeat) {
       if (event.repeat == 'daily') {
-        for (let eventDate = minDate; eventDate <= maxDate; eventDate = utils.addDays(eventDate, 1)) { //aby uzyskać datę przesuniętą o ileś dni, 
-         
-          ///???wielokrotnie uruchomić metodę makeBooked – raz dla każdego dnia z zakresu dat zdefiniowanego dla date-pickera.
-          thisBooking.makeBooked(utils.dateToStr(event), event.hour, event.duration, event.table);
-          //?? przekształca obiekt daty na tekst w formacie rok-miesiąc-dzień,
-          
+        for (let loopDate = minDate; loopDate <= maxDate; loopDate = utils.addDays(loopDate, 1)) { 
+          thisBooking.makeBooked(utils.dateToStr(loopDate), event.hour, event.duration, event.table);
         }
       }
     }

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width initial-scale=1.0 shrink-to-fit=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Pizzeria</title>
   <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext"
@@ -11,9 +11,11 @@
   <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="/vendor/range-slider.min.css">
-  <link rel="stylesheet" href="/css/style.css">
-  <base href="/">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
   <header class="header">
@@ -22,49 +24,181 @@
         <div class="logo">
           <h1 class="logo__title"><span>Mamma</span>Mia!</h1>
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
-      </div>
-      <div class="main-nav">
-        <a href="#order">Order</a>
-        <a href="#booking">Booking</a>
-      </div>>
-      <div id="cart" class="cart">
-        <div class="cart__summary">
-          <span class="cart__total-number">0</span>
-          <span class="cart__total-price">Total price: $<strong>0</strong></span>
-          <i class="fas fa-chevron-down"></i>
-          <i class="fas fa-shopping-cart cart__icon"></i>
         </div>
-        <div class="cart__content">
-          <form class="cart__order">
-            <ul class="cart__order-summary no-spacing">
-            </ul>
-            <ul class="cart__order-price">
-              <li class="cart__order-subtotal">
-                <span class="cart__order-price-name">Subtotal:</span>
-                <span class="cart__order-price-sum">$<strong>0</strong></span>
-              </li>
-              <li class="cart__order-delivery">
-                <span class="cart__order-price-name">Delivery:</span>
-                <span class="cart__order-price-sum">$<strong>0</strong></span>
-              </li>
-              <li class="cart__order-total">
-                <span class="cart__order-price-name"><strong>Total:</strong></span>
-                <span class="cart__order-price-sum">$<strong>0</strong></span>
-              </li>
-            </ul>
-            <div class="cart__order-confirmation">
-              <input type="tel" name="phone" placeholder="Your phone">
-              <input type="text" name="address" placeholder="Your address">
-              <button type="submit" class="btn-secondary">Order</button>
-            </div>
-          </form>
+        <div class="main-nav">
+          <a href="#home">Homepage</a>
+          <a href="#order">Order</a>
+          <a href="#booking">Booking</a>
+        </div>>
+        <div id="cart" class="cart">
+          <div class="cart__summary">
+            <span class="cart__total-number">0</span>
+            <span class="cart__total-price">Total price: $<strong>0</strong></span>
+            <i class="fas fa-chevron-down"></i>
+            <i class="fas fa-shopping-cart cart__icon"></i>
+          </div>
+          <div class="cart__content">
+            <form class="cart__order">
+              <ul class="cart__order-summary no-spacing">
+              </ul>
+              <ul class="cart__order-price">
+                <li class="cart__order-subtotal">
+                  <span class="cart__order-price-name">Subtotal:</span>
+                  <span class="cart__order-price-sum">$<strong>0</strong></span>
+                </li>
+                <li class="cart__order-delivery">
+                  <span class="cart__order-price-name">Delivery:</span>
+                  <span class="cart__order-price-sum">$<strong>0</strong></span>
+                </li>
+                <li class="cart__order-total">
+                  <span class="cart__order-price-name"><strong>Total:</strong></span>
+                  <span class="cart__order-price-sum">$<strong>0</strong></span>
+                </li>
+              </ul>
+              <div class="cart__order-confirmation">
+                <input type="tel" name="phone" placeholder="Your phone">
+                <input type="text" name="address" placeholder="Your address">
+                <button type="submit" class="btn-secondary">Order</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   </header>
 
-  <div id="pages"> 
+  <div id="pages">
+    <section id="homepage">
+      <div class="container">
+        <div class="homepage__wrapper">
+
+          <div class="nav-windows-wrapper">
+            <div class="nav-box">
+              <a href="#order">
+                <h2 class="title">ORDER ONLINE</h2>
+                <p class="subtitle-hidden">Delicious food delivered to your door</p>
+
+              </a>
+            </div>
+            <div class="nav-box">
+              <a href="#booking">
+                <h2 class="title">BOOK A TABLE</h2>
+                <p class="subtitle-hidden">Book table online in 4 steps</p>
+
+              </a>
+            </div>
+            <div class="nav-box">
+              <a href="#">
+                <h2 class="title">OPENING HOURS:</h2>
+                <p class="timetable">TUE - SUN, 12PM - 12AM</p>
+              </a>
+            </div>
+          </div>
+
+          <div class="carousel">
+               <div class="carousel__wrapper">
+              <div class="carousel__image">
+                <img src='./images/assets/pizza-3.jpg' alt="pizza">
+              </div>
+              <div class="bootstrap">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                  </ol>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <h4 class="opinion-header">AMAZING SERVICE!</h4>
+                      <p class="opinion-description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                        egestas viverra tortor, eu ullamcorper dui imperdiet nec. Nunc
+                        sed dolor at elit lobortis sodales.</p>
+                      <p class="opinion-author">- Ann Kelley</p>
+                    </div>
+                    <div class="carousel-item">
+                      <h4 class="opinion-header">Tasty but too spicy!</h4>
+                      <p class="opinion-description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                        egestas viverra tortor, eu ullamcorper dui imperdiet nec. Nunc
+                        sed dolor at elit lobortis sodales.</p>
+                      <p class="opinion-author">- Dennis Floyd</p>
+                    </div>
+                    <div class="carousel-item">
+                      <h4 class="opinion-header">The best pizza I've ever try</h4>
+                      <p class="opinion-description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                        egestas viverra tortor, eu ullamcorper dui imperdiet nec. Nunc
+                        sed dolor at elit lobortis sodales.</p>
+                      <p class="opinion-author">- Clarence Keller</p>
+                    </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <div class="gallery">
+              <div class="gallery__wrapper">
+                <div class="gallery__image">
+                  <img src='./images/assets/pizza-4.jpg' alt="pizza">
+                  <div class="icon">
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-share-alt"></i>
+                  </div>
+                </div>
+                <div class="gallery__image">
+                  <img src='./images/assets/pizza-5.jpg' alt="pizza">
+                  <div class="icon">
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-share-alt"></i>
+                  </div>
+                </div>
+                <div class="gallery__image">
+                  <img src='./images/assets/pizza-6.jpg' alt="pizza">
+                  <div class="icon">
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-share-alt"></i>
+                  </div>
+                </div>
+                <div class="gallery__image">
+                  <img src='./images/assets/pizza-7.jpg' alt="pizza">
+                  <div class="icon">
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-share-alt"></i>
+                  </div>
+                </div>
+                <div class="gallery__image">
+                  <img src='./images/assets/pizza-8.jpg' alt="pizza">
+                  <div class="icon">
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-share-alt"></i>
+                  </div>
+                </div>
+                <div class="gallery__image">
+                  <img src='./images/assets/pizza-9.jpg' alt="pizza">
+                  <div class="icon">
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-share-alt"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a href="#" id="instagram">View more on Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="order">
       <div id="product-list" class="product-list container"></div>
     </section>
@@ -72,6 +206,7 @@
       <div class="booking-wrapper container"></div>
     </section>
   </div>
+
   <script id="template-booking-widget" type="text/x-handlebars-template">
     <div class="booking-widget">
       <h2 class="page__title no-spacing">Book a table</h2>
@@ -243,9 +378,45 @@
 
     </article> <!-- .product -->
   </script>
+ <!-- <script id="template-carousel" type="text/x-handlebars-template">
+    <div class="carousel">
+      <div class="carousel__wrapper">
+        <div class="carousel__image">
+          <img src='./images/assets/pizza-3.jpg' alt="pizza">
+        </div>
+        <div class="bootstrap">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+        <div class="carousel-inner" role="listbox">
+          {{#each }}
+        {{#if @first}}
+        <div class="carousel-item active">
+            {{else}}
+            <div class="carousel-item">
+                {{/if}}
+            <h4 class="opinion-header">{{header}}</h4>
+            <p class="opinion-description">{{description}}</p>
+            <p class="opinion-author">{{author}}</p>
+          </div>
+          {{/each}}
+        </div>       
+   </div>  
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"></a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next"></a>
+  </div>
+</div>
+   </script>-->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="/vendor/range-slider.min.js"></script>
   <script src="js/app.js" type="module"></script>
 </body>
