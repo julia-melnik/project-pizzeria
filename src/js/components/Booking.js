@@ -32,6 +32,8 @@ export class Booking {
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+    thisBooking.dom.phone = thisBooking.dom.wrapper.querySelectorAll(select.booking.phone);
+    thisBooking.dom.address = thisBooking.dom.wrapper.querySelectorAll(select.booking.address);
     thisBooking.dom.starters = element.querySelectorAll(select.booking.starter);
 
   }
@@ -48,7 +50,7 @@ export class Booking {
     thisBooking.dom.hourPicker.addEventListener('updated', function () {
       thisBooking.updateDOM();
     });
-    
+
     thisBooking.dom.wrapper.addEventListener('submit', function () {
       event.preventDefault();
       thisBooking.sendBooking();
@@ -212,6 +214,8 @@ export class Booking {
       table: thisBooking.tableIsBooked,
       duration: thisBooking.hoursAmount.value,
       ppl: thisBooking.peopleAmount.value,
+      phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
       starters: [],
 
     };
