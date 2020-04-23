@@ -85,7 +85,6 @@ const app = {
         /* TODO: GET PAGE ID FROM HREF*/
         const pageId = clickedElement.getAttribute('href');
         const href = pageId.replace('#', '');
-
         /*  TODO: activate page */
         thisApp.activatePage(href);
       });
@@ -97,7 +96,7 @@ const app = {
         event.preventDefault();
         const boxId = clickedElement.getAttribute('href');
         const href = boxId.replace('#', '');
-        thisApp.activatePage(href); //????? nie pewna 
+        thisApp.activatePage(href); 
       });
     }
   },
@@ -113,7 +112,7 @@ const app = {
     }
 
     window.location.hash = '#/' + pageId;
-
+    document.body.classList = pageId;
 
     // # - strona nie przeładuje się, jeśli do adresu dodamy znak hash #. 
     // / - sprawi, że strona nie będzie się przewijać. 

@@ -48,6 +48,7 @@ export class Booking {
     thisBooking.dom.hourPicker.addEventListener('updated', function () {
       thisBooking.updateDOM();
     });
+    
     thisBooking.dom.wrapper.addEventListener('submit', function () {
       event.preventDefault();
       thisBooking.sendBooking();
