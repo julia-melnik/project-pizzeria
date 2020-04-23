@@ -59,15 +59,8 @@ const app = {
 
   initPages: function () {
     const thisApp = this;
-
     thisApp.pages = Array.from(document.querySelector(select.containerOf.pages).children);
-
-    //console.log(thisApp.pages);
-    /*wyszuk. kont. którego selektor jest zapisany w select.containerOf.pages,Następnie znajdziemy wszystkie 
-    dzieci tego kontenera za pomocą .children. W ten sposób uzyskamy kolekcję wrapperów podstron. */
-
-    thisApp.navLinks = Array.from(document.querySelectorAll(select.nav.links)); //tablica linkow do podstron
-
+    thisApp.navLinks = Array.from(document.querySelectorAll(select.nav.links)); 
     // thisApp.activatePage(thisApp.pages[0].id); //wywolanie metody, 0 - pierwsza strona z indeksem 0 
     // kasujemy kod powyzej, aby Po odświeżeniu strony jednak wyświetla się ponownie menu z produktami.
     thisApp.navBox = Array.from(document.querySelectorAll('.nav-box a'));
@@ -120,6 +113,8 @@ const app = {
     }
 
     window.location.hash = '#/' + pageId;
+
+
     // # - strona nie przeładuje się, jeśli do adresu dodamy znak hash #. 
     // / - sprawi, że strona nie będzie się przewijać. 
     // pageId  - id aktywowanej podstrony.
@@ -133,7 +128,16 @@ const app = {
 
   },
 
+  initCarousel: function () {
+    const thisApp = this;
+    console.log(thisApp);
 
+    // eslint-disable-next-line no-undef
+    $('.carousel').carousel({
+      interval: 3000,
+      pause:false
+    });
+  },
 
 
   init: function () {
@@ -149,7 +153,7 @@ const app = {
     thisApp.initCart();
     thisApp.initPages();
     thisApp.initBooking();
-
+    thisApp.initCarousel();
 
   },
 };

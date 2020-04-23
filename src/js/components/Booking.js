@@ -10,6 +10,7 @@ import { HourPicker } from './HourPicker.js';
 export class Booking {
   constructor(element) {
     const thisBooking = this;
+    thisBooking.selectedTable = null;
 
     thisBooking.render(element);
     thisBooking.initWidgets();
@@ -32,7 +33,7 @@ export class Booking {
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
     thisBooking.dom.starters = element.querySelectorAll(select.booking.starter);
-    
+
   }
 
 
@@ -53,6 +54,14 @@ export class Booking {
       thisBooking.getData();
     });
 
+
+    for (let table of thisBooking.dom.tables) { 
+      table.addEventListener('click', function () {
+        thisBooking.selectedTable.remove();
+      
+      });
+    }
+    
   }
 
   getData() {
@@ -93,7 +102,7 @@ export class Booking {
         ]);
       })
       .then(function ([bookings, eventsCurrent, eventsRepeat]) {
-        thisBooking.parseData(bookings,eventsRepeat, eventsCurrent);
+        thisBooking.parseData(bookings, eventsRepeat, eventsCurrent);
       });
 
   }
@@ -104,7 +113,7 @@ export class Booking {
     thisBooking.booked = {};
 
     for (let event of bookings) {
-  
+
       thisBooking.makeBooked(event.date, event.hour, event.duration, event.table);
     }
 
@@ -117,23 +126,20 @@ export class Booking {
 
     const minDate = thisBooking.datePicker.minDate;
     const maxDate = thisBooking.datePicker.maxDate;
-  
+
     for (let event of eventsRepeat) {
       if (event.repeat == 'daily') {
-        for (let loopDate = minDate; loopDate <= maxDate; loopDate = utils.addDays(loopDate, 1)) { 
+        for (let loopDate = minDate; loopDate <= maxDate; loopDate = utils.addDays(loopDate, 1)) {
           thisBooking.makeBooked(utils.dateToStr(loopDate), event.hour, event.duration, event.table);
         }
       }
     }
-
-    
     thisBooking.updateDOM();
   }
 
 
   makeBooked(date, hour, duration, table) {
     const thisBooking = this;
-
     thisBooking.booked[date] = {};
     //console.log(thisBooking.booked[date]);
 
@@ -171,19 +177,19 @@ export class Booking {
         //console.log('table', table);
       }
 
-      table.addEventListener('click', function () { 
+      table.addEventListener('click', function () {
         console.log('clicked table', table);
 
         /* prevent default action for event */
         event.preventDefault();
 
         /* toggle tableBooked class on element of table  */
-        table.classList.toggle('classNames.booking.tableBooked'); 
+        table.classList.toggle('classNames.booking.tableBooked');
 
         const selectedTable = document.querySelector(classNames.booking.tableBooked);
         console.log(selectedTable);
-        
-        if(!selectedTable){ 
+
+        if (!selectedTable) {
           table.classList.add('classNames.booking.tableBooked');
         } else {
           console.log('The table is booked');
@@ -206,7 +212,7 @@ export class Booking {
       duration: thisBooking.hoursAmount.value,
       ppl: thisBooking.peopleAmount.value,
       starters: [],
-    
+
     };
 
     for (let starter of thisBooking.dom.starters) {
@@ -231,7 +237,7 @@ export class Booking {
         thisBooking.makeBooked(payload.date, payload.hour, payload.table, payload.duration);
       });
 
-    
+
   }
 
 }
