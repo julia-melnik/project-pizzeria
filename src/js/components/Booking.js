@@ -256,6 +256,7 @@ export class Booking {
 
     thisBooking.dom.rangeSlider = thisBooking.dom.wrapper.querySelector('.rangeSlider');
     const slider = thisBooking.dom.rangeSlider;
+    
     console.log(slider);
     for (let bookedTime in bookedTimeRange) {
       if (bookedTimeRange[bookedTime].length < 1){

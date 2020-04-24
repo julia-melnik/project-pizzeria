@@ -112,7 +112,7 @@ export const settings = {
     tableIdAttribute: 'data-table',
   },
   db: { //konfiguracja parametrów, które będą nam potrzebne do łączenia się z API
-    url: '//localhost:3131',
+    url: '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : ''),
     product: 'product',
     order: 'order',
     booking: 'booking',
