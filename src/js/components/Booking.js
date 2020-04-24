@@ -10,7 +10,7 @@ import { HourPicker } from './HourPicker.js';
 export class Booking {
   constructor(element) {
     const thisBooking = this;
-    thisBooking.selectedTable = null;
+    thisBooking.selectedTable = null; //переменная selectedTable  неизвестна или не имеет значения по какой-то причине.
 
     thisBooking.render(element);
     thisBooking.initWidgets();
@@ -58,13 +58,13 @@ export class Booking {
     });
 
 
-    for (let table of thisBooking.dom.tables) { 
-      table.addEventListener('click', function () {
-        thisBooking.selectedTable.remove();
-      
+    /*for (let table of thisBooking.dom.tables) {
+      table.remove.addEventListener('click', function () {
+        table.remove(thisBooking.selectedTable);
+
       });
-    }
-    
+    }*/
+
   }
 
   getData() {
@@ -152,7 +152,7 @@ export class Booking {
     const bookedTime = utils.hourToNumber(hour);
 
     for (let bookedPeriod = bookedTime; bookedPeriod < bookedTime + duration; bookedPeriod += 0.5) {
-      if(typeof thisBooking.booked[date][bookedPeriod ] == 'undefined') {
+      if (typeof thisBooking.booked[date][bookedPeriod] == 'undefined') {
         thisBooking.booked[date][bookedPeriod] = [];
       }
       //console.log('thisBooking.booked[date][bookedPeriod]: ', thisBooking.booked[date][bookedPeriod]);
@@ -198,8 +198,9 @@ export class Booking {
 
         if (!selectedTable) {
           table.classList.add('classNames.booking.tableBooked');
-        } else {
-          console.log('The table is booked');
+        } else { 
+          
+          console.log('The table is already booked');
         }
 
       });
@@ -246,8 +247,29 @@ export class Booking {
         thisBooking.makeBooked(payload.date, payload.hour, payload.table, payload.duration);
       });
 
+  }
+  rangeSliderStyle() {
+    const thisBooking = this;
+    console.log(thisBooking);
+    const bookedTimeRange = thisBooking.booked[thisBooking.date];
+    const rangeColors = [];
+
+    thisBooking.dom.rangeSlider = thisBooking.dom.wrapper.querySelector('.rangeSlider');
+    const slider = thisBooking.dom.rangeSlider;
+    console.log(slider);
+    for (let bookedTime in bookedTimeRange) {
+      if (bookedTimeRange[bookedTime].length < 1){
+        //rangeColors(push) green color 
+      } else if (bookedTimeRange[bookedTime].length === 2 ){
+        //rangeColors(push)orange color 
+      }  else if (bookedTimeRange[bookedTime].length === 3 ) {
+        //rangeColors(push) red color 
+      }
+    }
+    const color = rangeColors.join();
+    slider.style.background = color;
+
+
 
   }
-
-
 }
