@@ -127,16 +127,7 @@ const app = {
 
   },
 
-  initCarousel: function () {
-    const thisApp = this;
-    console.log(thisApp);
-
-    // eslint-disable-next-line no-undef
-    $('.carousel').carousel({
-      interval: 3000,
-      pause:false
-    });
-  },
+  
 
 
   init: function () {
@@ -152,7 +143,7 @@ const app = {
     thisApp.initCart();
     thisApp.initPages();
     thisApp.initBooking();
-    thisApp.initCarousel();
+    
 
   },
 };

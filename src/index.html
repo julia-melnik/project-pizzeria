@@ -26,7 +26,7 @@
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
         </div>
         <div class="main-nav">
-          <a href="#home">Homepage</a>
+          <a href="#homepage">Homepage</a>
           <a href="#order">Order</a>
           <a href="#booking">Booking</a>
         </div>>
@@ -85,8 +85,11 @@
               </a>
             </div>
             <div class="nav-box">
+              <a href="#booking">
                 <h2 class="title">OPENING HOURS:</h2>
                 <p class="timetable">TUE - SUN, 12PM - 12AM</p>
+              </a>
+                
              
             </div>
           </div>
@@ -96,7 +99,7 @@
                 <img src='./images/assets/pizza-3.jpg' alt="pizza">
               </div>
               <div class="bootstrap">
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000" data-pause="false">
                   <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -369,40 +372,6 @@
 
     </article> <!-- .product -->
   </script>
-  <!-- <script id="template-carousel" type="text/x-handlebars-template">
-    <div class="carousel">
-      <div class="carousel__wrapper">
-        <div class="carousel__image">
-          <img src='./images/assets/pizza-3.jpg' alt="pizza">
-        </div>
-        <div class="bootstrap">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-        <div class="carousel-inner" role="listbox">
-          {{#each }}
-        {{#if @first}}
-        <div class="carousel-item active">
-            {{else}}
-            <div class="carousel-item">
-                {{/if}}
-            <h4 class="opinion-header">{{header}}</h4>
-            <p class="opinion-description">{{description}}</p>
-            <p class="opinion-author">{{author}}</p>
-          </div>
-          {{/each}}
-        </div>       
-   </div>  
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"></a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next"></a>
-  </div>
-</div>
-   </script>-->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

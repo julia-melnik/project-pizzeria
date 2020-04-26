@@ -10,7 +10,6 @@ import { HourPicker } from './HourPicker.js';
 export class Booking {
   constructor(element) {
     const thisBooking = this;
-    thisBooking.selectedTable = null; //переменная selectedTable  неизвестна или не имеет значения по какой-то причине.
 
     thisBooking.render(element);
     thisBooking.initWidgets();
@@ -24,7 +23,7 @@ export class Booking {
     thisBooking.dom = {};
     thisBooking.dom.wrapper = element;
     thisBooking.dom.wrapper.appendChild(utils.createDOMFromHTML(generatedHTML));
-    //console.log(generatedHTML);
+    thisBooking.dom.selectedTable = null;
 
 
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
@@ -57,13 +56,24 @@ export class Booking {
       thisBooking.getData();
     });
 
+    for (let table of thisBooking.dom.tables) {
+      table.addEventListener('click', function () {
+        console.log('clicked table', table);
 
-    /*for (let table of thisBooking.dom.tables) {
-      table.remove.addEventListener('click', function () {
-        table.remove(thisBooking.selectedTable);
+        /* prevent default action for event */
+        event.preventDefault();
+
+        thisBooking.dom.selectedTable = table.getAttribute(settings.booking.tableIdAttribute);
+
+        for (let t of thisBooking.dom.tables) {
+          t.classList.remove(classNames.booking.tableSelected);
+        }
+        
+        table.classList.add(classNames.booking.tableSelected);
 
       });
-    }*/
+    }
+
 
   }
 
@@ -184,26 +194,7 @@ export class Booking {
         //console.log('table', table);
       }
 
-      table.addEventListener('click', function () {
-        console.log('clicked table', table);
 
-        /* prevent default action for event */
-        event.preventDefault();
-
-        /* toggle tableBooked class on element of table  */
-        table.classList.toggle('classNames.booking.tableBooked');
-
-        const selectedTable = document.querySelector(classNames.booking.tableBooked);
-        console.log(selectedTable);
-
-        if (!selectedTable) {
-          table.classList.add('classNames.booking.tableBooked');
-        } else { 
-          
-          console.log('The table is already booked');
-        }
-
-      });
     }
 
 
@@ -248,25 +239,26 @@ export class Booking {
       });
 
   }
+
+
   rangeSliderStyle() {
     const thisBooking = this;
-    console.log(thisBooking);
     const bookedTimeRange = thisBooking.booked[thisBooking.date];
     const rangeColors = [];
 
     thisBooking.dom.rangeSlider = thisBooking.dom.wrapper.querySelector('.rangeSlider');
     const slider = thisBooking.dom.rangeSlider;
-    
-    console.log(slider);
+
     for (let bookedTime in bookedTimeRange) {
-      if (bookedTimeRange[bookedTime].length < 1){
+      if (bookedTimeRange[bookedTime].length < 1) {
         //rangeColors(push) green color 
-      } else if (bookedTimeRange[bookedTime].length === 2 ){
+      } else if (bookedTimeRange[bookedTime].length === 2) {
         //rangeColors(push)orange color 
-      }  else if (bookedTimeRange[bookedTime].length === 3 ) {
+      } else if (bookedTimeRange[bookedTime].length === 3) {
         //rangeColors(push) red color 
       }
     }
+
     const color = rangeColors.join();
     slider.style.background = color;
 
