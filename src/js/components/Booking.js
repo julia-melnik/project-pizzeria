@@ -59,22 +59,28 @@ export class Booking {
     for (let table of thisBooking.dom.tables) {
       table.addEventListener('click', function () {
         console.log('clicked table', table);
-
-        /* prevent default action for event */
         event.preventDefault();
 
         thisBooking.dom.selectedTable = table.getAttribute(settings.booking.tableIdAttribute);
-
         for (let t of thisBooking.dom.tables) {
           t.classList.remove(classNames.booking.tableSelected);
         }
-        
         table.classList.add(classNames.booking.tableSelected);
 
       });
     }
 
 
+    for (let table of thisBooking.dom.tables) {
+      thisBooking.dom.datePicker.addEventListener('updated', function () {
+        thisBooking.updateDOM();
+        
+        table.classList.add(classNames.booking.tableBooked);
+        table.classList.remove(classNames.booking.tableSelected);
+      });
+     
+
+    }
   }
 
   getData() {
